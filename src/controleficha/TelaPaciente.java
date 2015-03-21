@@ -1,7 +1,11 @@
 
 package controleficha;
 
+import com.toedter.calendar.JDateChooser;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -14,6 +18,7 @@ public class TelaPaciente extends javax.swing.JFrame {
     MaskFormatter mascaracep;
     JTable tblLista;
     Principal objPrincipal = new Principal();
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     
     configBusca objConfigBusca;
     
@@ -23,7 +28,8 @@ public class TelaPaciente extends javax.swing.JFrame {
     
     public TelaPaciente(paciente objPaciente, JTable tblLista, configBusca objConfigBusca) {
         initComponents();
-
+        
+        
         this.objConfigBusca = objConfigBusca;
         this.tblLista = tblLista;
         
@@ -56,7 +62,15 @@ public class TelaPaciente extends javax.swing.JFrame {
         edtTel1.setText(objPaciente.getTelefone1());
         edtTel2.setText(objPaciente.getTelefone2());
         edtCelular.setText(objPaciente.getCelular());
-        edtNascimento.setText(objPaciente.getDtNascimento());
+        
+        try {
+            System.out.println(objPaciente.getDtNascimento());
+            Date data = sdf.parse(objPaciente.getDtNascimento());
+            edtNascimento.setDate(data);
+            
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaPaciente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     
     }
     
@@ -70,7 +84,7 @@ public class TelaPaciente extends javax.swing.JFrame {
         objPaciente.setTelefone1(edtTel1.getText());
         objPaciente.setTelefone2(edtTel2.getText());
         objPaciente.setCelular(edtCelular.getText());
-        objPaciente.setDtNascimento(edtNascimento.getText());
+        objPaciente.setDtNascimento(sdf.format(edtNascimento.getDate()));
         
     }
 
@@ -95,57 +109,52 @@ public class TelaPaciente extends javax.swing.JFrame {
             mascaraCep.setPlaceholderCharacter('_');
             edtCpf = new javax.swing.JFormattedTextField(mascaraCep);
             jLabel8 = new javax.swing.JLabel();
+            edtNascimento = new com.toedter.calendar.JDateChooser("dd/MM/yyyy", "##/##/####", ' ');
+            jPanel2 = new javax.swing.JPanel();
+            jLabel4 = new javax.swing.JLabel();
+            jLabel5 = new javax.swing.JLabel();
+            jLabel6 = new javax.swing.JLabel();
             try{
-
-                MaskFormatter mascaraData = new MaskFormatter("##/##/####");
-                mascaraData.setPlaceholderCharacter('_');
-                edtNascimento = new javax.swing.JFormattedTextField(mascaraData);
-                jPanel2 = new javax.swing.JPanel();
-                jLabel4 = new javax.swing.JLabel();
-                jLabel5 = new javax.swing.JLabel();
-                jLabel6 = new javax.swing.JLabel();
+                MaskFormatter mascaraTel1 = new MaskFormatter("(##)####-####");
+                mascaraTel1.setPlaceholderCharacter('_');
+                edtTel1 = new javax.swing.JFormattedTextField(mascaraTel1);
                 try{
-
-                    MaskFormatter mascaraTel = new MaskFormatter("(##)####-####");
-                    mascaraTel.setPlaceholderCharacter('_');
-                    edtTel1 = new javax.swing.JFormattedTextField(mascaraTel);
+                    MaskFormatter mascaraTel2 = new MaskFormatter("(##)####-####");
+                    mascaraTel2.setPlaceholderCharacter('_');
+                    edtTel2 = new javax.swing.JFormattedTextField(mascaraTel2);
                     try{
-                        edtTel2 = new javax.swing.JFormattedTextField(mascaraTel);
-                        try{
 
-                            MaskFormatter mascaraCel = new MaskFormatter("(##)#####-####");
-                            mascaraCel.setPlaceholderCharacter('_');
-                            edtCelular = new javax.swing.JFormattedTextField(mascaraCel);
-                            jPanel3 = new javax.swing.JPanel();
-                            jScrollPane1 = new javax.swing.JScrollPane();
-                            mmoObservacao = new javax.swing.JTextArea();
-                            jPanel4 = new javax.swing.JPanel();
-                            btnSalvar = new javax.swing.JButton();
-                            btnCancelar = new javax.swing.JButton();
-                            btnExcluir = new javax.swing.JButton();
+                        MaskFormatter mascaraCel = new MaskFormatter("(##)#####-####");
+                        mascaraCel.setPlaceholderCharacter('_');
+                        edtCelular = new javax.swing.JFormattedTextField(mascaraCel);
+                        jPanel3 = new javax.swing.JPanel();
+                        jScrollPane1 = new javax.swing.JScrollPane();
+                        mmoObservacao = new javax.swing.JTextArea();
+                        jPanel4 = new javax.swing.JPanel();
+                        btnSalvar = new javax.swing.JButton();
+                        btnCancelar = new javax.swing.JButton();
+                        btnExcluir = new javax.swing.JButton();
 
-                            jButton1.setText("jButton1");
+                        jButton1.setText("jButton1");
 
-                            setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+                        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-                            jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+                        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-                            jLabel1.setText("Nome:");
+                        jLabel1.setText("Nome:");
 
-                            jLabel2.setText("CPF:");
+                        jLabel2.setText("CPF:");
 
-                            jLabel3.setText("CNS:");
+                        jLabel3.setText("CNS:");
 
-                            jLabel7.setFont(new java.awt.Font("Ubuntu Mono", 1, 19)); // NOI18N
-                            jLabel7.setText("Número da ficha:");
+                        jLabel7.setFont(new java.awt.Font("Ubuntu Mono", 1, 19)); // NOI18N
+                        jLabel7.setText("Número da ficha:");
 
-                            edtFicha.setFont(new java.awt.Font("Ubuntu Mono", 1, 19)); // NOI18N
-
-                        }catch(Exception e){}
-
-                        jLabel8.setText("Data de Nascimento:");
+                        edtFicha.setFont(new java.awt.Font("Ubuntu Mono", 1, 19)); // NOI18N
 
                     }catch(Exception e){}
+
+                    jLabel8.setText("Data de Nascimento:");
 
                     javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
                     jPanel1.setLayout(jPanel1Layout);
@@ -177,7 +186,7 @@ public class TelaPaciente extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(edtNascimento))
+                                        .addComponent(edtNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGap(0, 0, Short.MAX_VALUE))))
                     );
                     jPanel1Layout.setVerticalGroup(
@@ -195,7 +204,7 @@ public class TelaPaciente extends javax.swing.JFrame {
                             .addComponent(jLabel8)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(edtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel2)
                                 .addComponent(jLabel3))
@@ -360,38 +369,42 @@ public class TelaPaciente extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         
-        int resultado = JOptionPane.showConfirmDialog(this, "Confirma a gravação dos dados ?");
+        if(ValidaCampos()){
         
-        if(FlagEdit){
-        
-            if(resultado == 0){
+            int resultado = JOptionPane.showConfirmDialog(this, "Confirma a gravação dos dados ?");
 
-                carregaObjeto();
-                objPaciente.atualizar(objPaciente.getId());
-                objPrincipal.CarregaTabela(tblLista,objConfigBusca);
-                this.dispose();
+                if(FlagEdit){
 
-            }else if(resultado == 1){
+                    if(resultado == 0){
 
-                dispose();
+                        carregaObjeto();
+                        objPaciente.atualizar(objPaciente.getId());
+                        objPrincipal.CarregaTabela(tblLista,objConfigBusca);
+                        this.dispose();
 
-            }
-            
-        }else{
-        
-            if(resultado == 0){
+                    }else if(resultado == 1){
 
-                carregaObjeto();
-                objPaciente.salvar();
-                objPrincipal.CarregaTabela(tblLista,objConfigBusca);
-                this.dispose();
+                        dispose();
 
-            }else if(resultado == 1){
+                    }
 
-                dispose();
+                }else{
 
-            }
-            
+                    if(resultado == 0){
+
+                        carregaObjeto();
+                        objPaciente.salvar();
+                        objPrincipal.CarregaTabela(tblLista,objConfigBusca);
+                        this.dispose();
+
+                    }else if(resultado == 1){
+
+                        dispose();
+
+                    }
+
+                }
+
         }
         
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -418,6 +431,35 @@ public class TelaPaciente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
+    public boolean ValidaCampos(){
+    
+        boolean flag = true;
+        
+        if(edtNome.getText().toString().trim().length() == 0){
+        
+            flag  = false;
+            JOptionPane.showMessageDialog(null, "Infome o nome do Paciente.");
+            
+        }else if(edtFicha.getText().trim().length() == 0){
+        
+            flag  = false;
+            JOptionPane.showMessageDialog(null, "Infome o número da ficha.");
+            
+        }else if(edtNascimento.getDate() == null){
+
+                flag  = false;
+                JOptionPane.showMessageDialog(null, "Data de nascimento incorreta.");
+         
+        }else if(!CpfCnpj.isValidCPF(edtCpf.getText())){
+        
+            flag = false;
+            JOptionPane.showMessageDialog(null, "CPF inválido.");
+            
+        }
+        
+    return flag;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -461,7 +503,7 @@ public class TelaPaciente extends javax.swing.JFrame {
     private javax.swing.JTextField edtCns;
     private javax.swing.JFormattedTextField edtCpf;
     private javax.swing.JTextField edtFicha;
-    private javax.swing.JFormattedTextField edtNascimento;
+    private com.toedter.calendar.JDateChooser edtNascimento;
     private javax.swing.JTextField edtNome;
     private javax.swing.JFormattedTextField edtTel1;
     private javax.swing.JFormattedTextField edtTel2;

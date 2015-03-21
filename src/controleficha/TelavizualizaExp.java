@@ -5,23 +5,27 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 
 public class TelavizualizaExp extends javax.swing.JFrame {
 
+    Principal objPrincipal = new Principal();
     CsvRead csvArq = new CsvRead();
     DefaultListModel<String> listaLocalOk = new DefaultListModel<String>();
     DefaultListModel<String> listaImportadalOk = new DefaultListModel<String>();
+    JTable tblPrincipal;
     
     List listaIndice = new ArrayList();
     
     DefaultListModel<String> listaImportada = new DefaultListModel<String>();
     DefaultListModel<String> listaLocal = new DefaultListModel<String>();
     
-    public TelavizualizaExp(String arquivo) {
+    public TelavizualizaExp(String arquivo, JTable tblPrincipal) {
         initComponents();
      
-     
+     this.tblPrincipal = tblPrincipal;
      
      csvArq.LeArquivo(tblVizualiza, arquivo, listaImportada);
      lstImportada.setModel(listaImportada);
@@ -323,12 +327,31 @@ public class TelavizualizaExp extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-       csvArq.InsereDadosImportados(tblVizualiza,listaLocalOk, listaImportadalOk, listaIndice);
-        
+       
+       if(ValidaCampos()){
+           
+            csvArq.InsereDadosImportados(tblVizualiza,listaLocalOk, listaImportadalOk, listaIndice);
+            JOptionPane.showMessageDialog(null, "Dados importados com sucesso.");
+            objPrincipal.CarregaTabela(tblPrincipal, new configBusca());
+            this.dispose();
+            
+       }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public boolean ValidaCampos(){
+    
+        boolean flag = true;
+        
+        if((listaLocalOk.getSize() != listaImportadalOk.getSize()) || listaLocalOk.isEmpty() || listaImportadalOk.isEmpty()){
+            
+            flag = false;
+            JOptionPane.showMessageDialog(null, "Associação de campos incorreta.");
+            
+        }
+        
+    return flag;
+    }
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

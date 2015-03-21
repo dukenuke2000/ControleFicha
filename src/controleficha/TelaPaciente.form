@@ -126,7 +126,7 @@
                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="edtNascimento" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -188,11 +188,9 @@
             <Property name="text" type="java.lang.String" value="Data de Nascimento:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="edtNascimento">
+        <Component class="com.toedter.calendar.JDateChooser" name="edtNascimento">
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JFormattedTextField(mascaraData)"/>
-            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try{&#xa;&#xa;MaskFormatter mascaraData = new MaskFormatter(&quot;##/##/####&quot;);&#xa;mascaraData.setPlaceholderCharacter(&apos;_&apos;);"/>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="}catch(Exception e){}"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.toedter.calendar.JDateChooser(&quot;dd/MM/yyyy&quot;, &quot;##/##/####&quot;, &apos; &apos;)"/>
           </AuxValues>
         </Component>
       </SubComponents>
@@ -268,15 +266,15 @@
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="edtTel1">
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JFormattedTextField(mascaraTel)"/>
-            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try{&#xa;&#xa;MaskFormatter mascaraTel = new MaskFormatter(&quot;(##)####-####&quot;);&#xa;mascaraTel.setPlaceholderCharacter(&apos;_&apos;);"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JFormattedTextField(mascaraTel1)"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try{&#xa;MaskFormatter mascaraTel1 = new MaskFormatter(&quot;(##)####-####&quot;);&#xa;mascaraTel1.setPlaceholderCharacter(&apos;_&apos;);"/>
             <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="}catch(Exception e){}"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="edtTel2">
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JFormattedTextField(mascaraTel)"/>
-            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try{"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JFormattedTextField(mascaraTel2)"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try{&#xa;MaskFormatter mascaraTel2 = new MaskFormatter(&quot;(##)####-####&quot;);&#xa;mascaraTel2.setPlaceholderCharacter(&apos;_&apos;);"/>
             <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="}catch(Exception e){}"/>
           </AuxValues>
         </Component>

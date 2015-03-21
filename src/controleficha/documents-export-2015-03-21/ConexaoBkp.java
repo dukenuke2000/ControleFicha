@@ -1,22 +1,21 @@
+
 package controleficha;
 
-
-import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import org.h2.tools.Server;
 
-public class Conexao extends TInputOutput {
+public class ConexaoBkp {
     
     private Connection connection;
     private Statement stm;
@@ -24,59 +23,26 @@ public class Conexao extends TInputOutput {
     private Server server;
     
     private String usuario = "sa";
+
+    public Statement getStm() {
+        return stm;
+    }
     private String senha = "";
-    private String servidor; //= "localhost";
-    private String pathDb; // = "~/saude";
- 
+    private String servidor = "localhost";
+  //  private String pathDb = "~/saude";
+  
+                                    //windows
+//  private String pathDb = "C:\\Users\\a807192\\Documents\\NetBeansProjects\\ControleFicha\\saude";
+                                    //Linux
+    private String pathDb = "~/saude";
+   // private String pathDb = "localhost/~/test";
     
     //       como usar
     //IniciaServidor(true);
     //ConectaBase(true);
     
-    public Conexao(){
-            
+    public ConexaoBkp() {
         
-        File file = new File(getLocalarquivo());
-        
-        if(file.exists()){  //Verifica se o arquivo já existe, se nao existir ele ira criar um como modelo
-            
-            System.out.println("Arquivo Config.ini já existe.");
-            
-            //pega valor do arquivo Config.ini utilizando o metodo PegaValor() da super classe
-            pathDb = PegaValor("database");
-            servidor = PegaValor("servidor");
-            
-        }else{
-            
-            System.out.println("Arquivo Config.ini não existe !!!");
-            
-            
-            try{
-                
-                String[] linhaConfig = {"database=~/NetBeansProjects/ControleFicha/build/classes/controleficha/saude",
-                                        "servidor=localhost"
-                                        };
-
-                gravaTexto(linhaConfig);
-            
-                System.out.println("Arquivo Config.ini criado com sucesso...");
-                
-                pathDb = PegaValor("database");
-                servidor = PegaValor("servidor");
-                
-            }catch(Exception e){
-                
-                System.out.println("Erro ao tentar criar Config.ini");
-                
-            }
-            
-            
-            
-        }
-        
-            
-            
- 
     } 
     
     public void ConectaBase(Boolean conecta){
@@ -84,11 +50,9 @@ public class Conexao extends TInputOutput {
         try {
         
             if(conecta){
-                String ConfigCon = "jdbc:h2:tcp://" + servidor + "/" + pathDb + ";IFEXISTS=TRUE";
-                System.out.println("Base de dados: " + ConfigCon);
-                
+
               //  Class.forName("org.h2.Driver");
-                connection = DriverManager.getConnection(ConfigCon, usuario , senha);
+                connection = DriverManager.getConnection("jdbc:h2:tcp://" + servidor + "/" + pathDb + ";IFEXISTS=TRUE", usuario , senha);
                 stm = connection.createStatement();
 
             }else{
@@ -174,6 +138,24 @@ public class Conexao extends TInputOutput {
             return dataCorrigido;
     }
     
+    public boolean validaData(String data){
+    
+        boolean flag = true;
+        
+        SimpleDateFormat df = new SimpleDateFormat("##/##/####");
+        df.setLenient(false);
+        
+        try{
+    
+            Date Data = df.parse(data);
+            flag = true;
+            
+        }catch(Exception e){
+            flag = false;   
+        }
+        
+    return flag;
+    }
     
     
 }

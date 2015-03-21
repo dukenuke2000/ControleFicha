@@ -1,11 +1,8 @@
 
 package controleficha;
 
-import java.awt.Color;
 import java.io.File;
-import java.text.ParseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.text.SimpleDateFormat;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.text.MaskFormatter;
@@ -21,7 +18,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         
         edtCpf.setFocusLostBehavior(JFormattedTextField.PERSIST);
-        edtNascimento.setFocusLostBehavior(JFormattedTextField.PERSIST);
+       // edtNascimento.setFocusLostBehavior(JFormattedTextField.PERSIST);
         
         Conexao con = new Conexao();
         
@@ -46,42 +43,37 @@ public class TelaPrincipal extends javax.swing.JFrame {
             mascaraCpf.setPlaceholderCharacter('_');
             edtCpf = new javax.swing.JFormattedTextField(mascaraCpf);
             jLabel4 = new javax.swing.JLabel();
-            try{
-                MaskFormatter mascaraData = new MaskFormatter("##/##/####");
-                mascaraData.setPlaceholderCharacter('_');
-                edtNascimento = new javax.swing.JFormattedTextField(mascaraData);
-                jPanel2 = new javax.swing.JPanel();
-                jScrollPane1 = new javax.swing.JScrollPane();
-                tblLista = new javax.swing.JTable();
-                jMenuBar1 = new javax.swing.JMenuBar();
-                jMenu1 = new javax.swing.JMenu();
-                mnuNovo = new javax.swing.JMenuItem();
-                mnuImportar = new javax.swing.JMenuItem();
-                mnuSair = new javax.swing.JMenuItem();
-                jMenu2 = new javax.swing.JMenu();
+            edtNascimento = new com.toedter.calendar.JDateChooser("dd/MM/yyyy", "##/##/####", ' ');
+            jPanel2 = new javax.swing.JPanel();
+            jScrollPane1 = new javax.swing.JScrollPane();
+            tblLista = new javax.swing.JTable();
+            jMenuBar1 = new javax.swing.JMenuBar();
+            jMenu1 = new javax.swing.JMenu();
+            mnuNovo = new javax.swing.JMenuItem();
+            mnuImportar = new javax.swing.JMenuItem();
+            mnuSair = new javax.swing.JMenuItem();
+            jMenu2 = new javax.swing.JMenu();
 
-                setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+            setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-                jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Busca"));
+            jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Busca"));
 
-                jLabel2.setText("CPF:");
+            jLabel2.setText("CPF:");
 
-                jLabel3.setText("CNS:");
+            jLabel3.setText("CNS:");
 
-                jLabel1.setText("Nome:");
+            jLabel1.setText("Nome:");
 
-                btnBuscar.setText("Buscar");
-                btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        btnBuscarActionPerformed(evt);
-                    }
-                });
-
-            }catch(Exception e){}
-
-            jLabel4.setText("Data de Nascimento:");
+            btnBuscar.setText("Buscar");
+            btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    btnBuscarActionPerformed(evt);
+                }
+            });
 
         }catch(Exception e){}
+
+        jLabel4.setText("Data de Nascimento:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -104,9 +96,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addComponent(edtNome))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(edtNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(edtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -119,11 +111,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addComponent(edtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(edtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(edtCns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar)
-                    .addComponent(jLabel4)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(edtCns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBuscar)
+                        .addComponent(jLabel4))
                     .addComponent(edtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -166,7 +159,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Arquivo");
@@ -218,6 +211,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void mnuNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNovoActionPerformed
         
         TelaPaciente Tpac = new TelaPaciente(null,tblLista, objConfigBusca);
+        Tpac.setLocationRelativeTo(null);
         Tpac.setVisible(true);
         
     }//GEN-LAST:event_mnuNovoActionPerformed
@@ -228,22 +222,33 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
         if(evt.getClickCount() == 2){
         
-         paciente objPaciente = new paciente();
-         objPaciente.autoCarregar(id);
-         
-         TelaPaciente Tpac = new TelaPaciente(objPaciente, tblLista, objConfigBusca);
-         Tpac.setVisible(true);
+            paciente objPaciente = new paciente();
+            objPaciente.autoCarregar(id);
+
+            TelaPaciente Tpac = new TelaPaciente(objPaciente, tblLista, objConfigBusca);
+            Tpac.setLocationRelativeTo(null);
+            Tpac.setVisible(true);
             
         }
         
     }//GEN-LAST:event_tblListaMouseClicked
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-
+    
+        String auxData = null;
+        
+        if(edtNascimento.getDate() != null){
+            
+            SimpleDateFormat df = new SimpleDateFormat("dd/MM/YYYY");
+            auxData = df.format(edtNascimento.getDate());
+            
+        }
+        
+      //  System.out.println(auxData);
         
         objConfigBusca.setCns(edtCns.getText());
         objConfigBusca.setCpf(edtCpf.getText());
-        objConfigBusca.setDtNascimento(edtNascimento.getText());
+        objConfigBusca.setDtNascimento(auxData);
         objConfigBusca.setNome(edtNome.getText());
         
         objpriPrincipal.CarregaTabela(tblLista, objConfigBusca);
@@ -263,7 +268,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }catch(Exception e){}
         
         if(arquivo != null){
-            TelavizualizaExp tvz = new TelavizualizaExp(arquivo);
+            TelavizualizaExp tvz = new TelavizualizaExp(arquivo, tblLista);
+            tvz.setLocationRelativeTo(null);
             tvz.setVisible(true);
         }
     }//GEN-LAST:event_mnuImportarActionPerformed
@@ -307,7 +313,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JTextField edtCns;
     private javax.swing.JFormattedTextField edtCpf;
-    private javax.swing.JFormattedTextField edtNascimento;
+    private com.toedter.calendar.JDateChooser edtNascimento;
     private javax.swing.JTextField edtNome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

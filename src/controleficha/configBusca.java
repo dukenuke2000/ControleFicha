@@ -1,37 +1,24 @@
 
 package controleficha;
 
+import javax.swing.JOptionPane;
+
 public class configBusca extends Conexao {
    
-    private String nome = "%";
-    private String cpf = "%";
-    private String cns = "%";
-    private String dtNascimento = "%";
+    private String nome = "";
+    private String cpf = "";
+    private String cns = "";
+    private String dtNascimento = "";
 
     public String getNome() {
-        
-        if(nome == null || nome == ""){
-            nome = "%";
-        }
-        
         return nome;
     }
 
     public String getCpf() {
-        
-        if(cpf == null || cpf == "" || cpf == "___-___-___-__"){
-            cpf = "%";
-        }
-        
         return cpf;
     }
 
     public String getCns() {
-        
-        if(cns == null || cns == "" || cns.length() == 0){
-            cns = "%";
-        }
-        
         return cns;
     }
 
@@ -49,6 +36,19 @@ public class configBusca extends Conexao {
     }
 
     public void setCpf(String cpf) {
+        
+        if(cpf == null || cpf == "" || cpf.equals("___-___-___-__")){
+            cpf = "%";                      
+        }else{
+            
+            if(!CpfCnpj.isValidCPF(cpf)){
+                JOptionPane.showMessageDialog(null, "CPF inválido");
+            }else{
+               // JOptionPane.showMessageDialog(null, "CPF Válido");
+            };
+            
+        }
+        
         this.cpf = cpf;
     }
 
@@ -59,7 +59,6 @@ public class configBusca extends Conexao {
     public void setDtNascimento(String dtNascimento) {
         this.dtNascimento = codeData(dtNascimento);
     }
-            
-    
-    
+                
+   
 }

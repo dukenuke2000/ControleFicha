@@ -8,7 +8,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +20,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 
-public class CsvRead extends Conexao{
+public class CsvRead extends Conexao {
     
     public int LeArquivo(JTable tblVizualiza, String arquivo, DefaultListModel<String> listaImportada){
     
@@ -84,10 +86,6 @@ public class CsvRead extends Conexao{
         return nLinhas;
     }
     
-    public void gravaLinha(){
-   
-    }
-    
     public DefaultListModel<String> carregaNomeCampos(JList listaBaseLocal){
     
         DefaultListModel<String> lista = new DefaultListModel<String>();
@@ -121,12 +119,13 @@ public class CsvRead extends Conexao{
         String sqlCampos = "";
         String sqlValores = "";
         String sql;
+        String auxValores;
         
         for(int y=0 ; y<tblImporta.getRowCount() ; y++){
         
             for(int x=0 ; x<ListaLocal.size() ;  x++){
 
-                String virgula = ", ";
+                String virgula = ",";
 
                 if(x == ListaLocal.getSize() -1){
                     virgula = "";
@@ -138,14 +137,25 @@ public class CsvRead extends Conexao{
 
             for(int x=0 ; x<listaIndices.size(); x++){
 
-                String virgula = ", ";
+                String virgula = ",";
 
                 if(x == listaIndices.size() -1){
                     virgula = "";
                 }
-
-            sqlValores = sqlValores +"'"+ tblImporta.getValueAt(y, Integer.parseInt(listaIndices.get(x).toString())) +"'"+ virgula;
-
+            
+            auxValores = tblImporta.getValueAt(y, Integer.parseInt(listaIndices.get(x).toString())).toString().trim();
+                
+                try{
+                    
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    sdf.setLenient(false);
+                    Date data = sdf.parse(auxValores);
+                    auxValores = codeData(auxValores);
+                    sqlValores = sqlValores.trim() +"'"+ auxValores +"'"+ virgula;
+                    
+                    }catch(Exception e){
+                        sqlValores = sqlValores.trim() +"'"+ auxValores +"'"+ virgula;
+                    }
            }
            
            sql = "INSERT INTO pacientes(" + sqlCampos +  ") VALUES(" + sqlValores + ")";
