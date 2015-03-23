@@ -32,7 +32,7 @@ public class Conexao extends TInputOutput {
     //       como usar
     //IniciaServidor(true);
     //ConectaBase(true);
-    
+
     public Conexao(){
             
         
@@ -53,7 +53,7 @@ public class Conexao extends TInputOutput {
             
             try{
                 
-                String[] linhaConfig = {"database=~/NetBeansProjects/ControleFicha/build/classes/controleficha/saude",
+                String[] linhaConfig = {"database=~/NetBeansProjects/prefeitura/saude",
                                         "servidor=localhost"
                                         };
 
@@ -111,6 +111,10 @@ public class Conexao extends TInputOutput {
         ResultSet rs = stm.executeQuery(sql);
         return rs;
     };
+    
+     public Statement getStm() {
+        return stm;
+    }
     
     public void setInsertPs(String sql, List parametros) throws SQLException{
         

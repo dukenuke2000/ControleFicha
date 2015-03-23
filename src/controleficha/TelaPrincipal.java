@@ -5,6 +5,9 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.MaskFormatter;
 
 public class TelaPrincipal extends javax.swing.JFrame {
@@ -14,7 +17,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     public TelaPrincipal() {
         initComponents();
-        
+
         this.setLocationRelativeTo(null);
         
         edtCpf.setFocusLostBehavior(JFormattedTextField.PERSIST);
@@ -44,6 +47,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             edtCpf = new javax.swing.JFormattedTextField(mascaraCpf);
             jLabel4 = new javax.swing.JLabel();
             edtNascimento = new com.toedter.calendar.JDateChooser("dd/MM/yyyy", "##/##/####", ' ');
+            btnLimpar = new javax.swing.JButton();
             jPanel2 = new javax.swing.JPanel();
             jScrollPane1 = new javax.swing.JScrollPane();
             tblLista = new javax.swing.JTable();
@@ -53,6 +57,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
             mnuImportar = new javax.swing.JMenuItem();
             mnuSair = new javax.swing.JMenuItem();
             jMenu2 = new javax.swing.JMenu();
+            mnuGeraBkp = new javax.swing.JMenuItem();
+            mnuRestauraBkp = new javax.swing.JMenuItem();
 
             setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,6 +81,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jLabel4.setText("Data de Nascimento:");
 
+        btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -93,14 +106,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edtNome))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(edtNome)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edtNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(edtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,7 +132,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addComponent(edtCns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnBuscar)
-                        .addComponent(jLabel4))
+                        .addComponent(jLabel4)
+                        .addComponent(btnLimpar))
                     .addComponent(edtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -155,7 +172,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1051, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1199, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,7 +189,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(mnuNovo);
 
-        mnuImportar.setText("Importar...");
+        mnuImportar.setText("Importar CSV...");
         mnuImportar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuImportarActionPerformed(evt);
@@ -185,7 +202,24 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Sobre");
+        jMenu2.setText("Backup");
+
+        mnuGeraBkp.setText("Gerar Backup ...");
+        mnuGeraBkp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuGeraBkpActionPerformed(evt);
+            }
+        });
+        jMenu2.add(mnuGeraBkp);
+
+        mnuRestauraBkp.setText("Restaurar Backup ...");
+        mnuRestauraBkp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuRestauraBkpActionPerformed(evt);
+            }
+        });
+        jMenu2.add(mnuRestauraBkp);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -194,8 +228,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,6 +247,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void mnuNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNovoActionPerformed
         
         TelaPaciente Tpac = new TelaPaciente(null,tblLista, objConfigBusca);
+        Tpac.setModal(true);
         Tpac.setLocationRelativeTo(null);
         Tpac.setVisible(true);
         
@@ -226,6 +263,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             objPaciente.autoCarregar(id);
 
             TelaPaciente Tpac = new TelaPaciente(objPaciente, tblLista, objConfigBusca);
+            Tpac.setModal(true);
             Tpac.setLocationRelativeTo(null);
             Tpac.setVisible(true);
             
@@ -260,6 +298,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         String arquivo = null;
         
         JFileChooser jc = new JFileChooser();
+        jc.setFileFilter(new FileNameExtensionFilter("Arquivo CSV", "csv"));
+        jc.setAcceptAllFileFilterUsed(false);
         jc.showOpenDialog(jc);
         File file = jc.getSelectedFile();
         
@@ -274,6 +314,68 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mnuImportarActionPerformed
 
+    private void mnuGeraBkpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuGeraBkpActionPerformed
+        
+        GeraBackup();
+       
+    }//GEN-LAST:event_mnuGeraBkpActionPerformed
+
+    private void mnuRestauraBkpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRestauraBkpActionPerformed
+        
+        RestauraBackup();
+        
+    }//GEN-LAST:event_mnuRestauraBkpActionPerformed
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+       
+        LimpaPesquisa();
+        
+    }//GEN-LAST:event_btnLimparActionPerformed
+
+    public void LimpaPesquisa(){
+    
+        edtCns.setText(null);
+        edtCpf.setText(null);
+        edtNascimento.setDate(null);
+        edtNome.setText(null);
+    
+    }
+    
+    public void GeraBackup(){
+    
+       Backup objBackup = new Backup();
+        
+       String caminho;
+        
+       JFileChooser jc = new JFileChooser();
+       jc.setFileFilter(new FileNameExtensionFilter("Arquivo SQL", "sql"));
+       jc.setAcceptAllFileFilterUsed(false);
+       jc.showSaveDialog(jc);
+       File file = jc.getSelectedFile();
+       
+       System.out.println("Gerar backup em: " + file.getAbsolutePath());
+    
+       objBackup.GeraBackup(file.getAbsolutePath());
+       
+    }
+    
+    public void RestauraBackup(){
+    
+      Backup objBackup = new Backup();
+      
+      String caminho;
+        
+      JFileChooser jc = new JFileChooser();
+      jc.setFileFilter(new FileNameExtensionFilter("Arquivo SQL", "sql"));
+      jc.setAcceptAllFileFilterUsed(false);
+      jc.showOpenDialog(jc);
+      File file = jc.getSelectedFile();
+       
+      System.out.println("Restaurar de: " + file.getAbsolutePath());  
+    
+      objBackup.RestauraBackup(file.getAbsolutePath());
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -311,6 +413,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnLimpar;
     private javax.swing.JTextField edtCns;
     private javax.swing.JFormattedTextField edtCpf;
     private com.toedter.calendar.JDateChooser edtNascimento;
@@ -325,8 +428,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenuItem mnuGeraBkp;
     private javax.swing.JMenuItem mnuImportar;
     private javax.swing.JMenuItem mnuNovo;
+    private javax.swing.JMenuItem mnuRestauraBkp;
     private javax.swing.JMenuItem mnuSair;
     private javax.swing.JTable tblLista;
     // End of variables declaration//GEN-END:variables

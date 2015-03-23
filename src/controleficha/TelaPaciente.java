@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.text.MaskFormatter;
 
-public class TelaPaciente extends javax.swing.JFrame {
+public class TelaPaciente extends javax.swing.JDialog {
 
     paciente objPaciente;
     MaskFormatter mascaracep;
