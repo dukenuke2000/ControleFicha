@@ -38,8 +38,9 @@ public class Conexao extends TInputOutput {
         
         File file = new File(getLocalarquivo());
         
-        if(file.exists()){  //Verifica se o arquivo já existe, se nao existir ele ira criar um como modelo
-            
+            //Verifica se o arquivo já existe, se nao existir ele ira criar um como modelo
+        if(file.exists()){
+                
             System.out.println("Arquivo Config.ini já existe.");
             
             //pega valor do arquivo Config.ini utilizando o metodo PegaValor() da super classe
@@ -83,8 +84,16 @@ public class Conexao extends TInputOutput {
     
         try {
         
+        File file = new File(pathDb + ".mv.db");
+        
             if(conecta){
-                String ConfigCon = "jdbc:h2:tcp://" + servidor + "/" + pathDb + ";IFEXISTS=TRUE";
+                String ConfigCon;
+                    
+                    if(file.exists()){
+                        ConfigCon = "jdbc:h2:tcp://" + servidor + "/" + pathDb + ";IFEXISTS=TRUE";
+                    }else{
+                        ConfigCon = "jdbc:h2:tcp://" + servidor + "/" + pathDb;
+                    }
                 System.out.println("Base de dados: " + ConfigCon);
                 
               //  Class.forName("org.h2.Driver");

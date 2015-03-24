@@ -2,7 +2,10 @@
 package controleficha;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
@@ -26,7 +29,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         Conexao con = new Conexao();
         
         con.IniciaServidor(true);
-        objpriPrincipal.CarregaTabela(tblLista, objConfigBusca);
+        try {
+            objpriPrincipal.CarregaTabela(tblLista, objConfigBusca);
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            
+            RestauraBackup();
+            
+        }
         
     }
 
@@ -289,7 +299,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
         objConfigBusca.setDtNascimento(auxData);
         objConfigBusca.setNome(edtNome.getText());
         
-        objpriPrincipal.CarregaTabela(tblLista, objConfigBusca);
+        try {
+            objpriPrincipal.CarregaTabela(tblLista, objConfigBusca);
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            
+            RestauraBackup();
+            
+                try {
+                    objpriPrincipal.CarregaTabela(tblLista, objConfigBusca);
+                } catch (SQLException ex1) {
+                    Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+        }
         
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -348,6 +370,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
        String caminho;
         
        JFileChooser jc = new JFileChooser();
+       jc.setDialogTitle("GERA BACKUP");
        jc.setFileFilter(new FileNameExtensionFilter("Arquivo SQL", "sql"));
        jc.setAcceptAllFileFilterUsed(false);
        jc.showSaveDialog(jc);
@@ -366,6 +389,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
       String caminho;
         
       JFileChooser jc = new JFileChooser();
+      jc.setDialogTitle("RESTAURA BACKUP");
       jc.setFileFilter(new FileNameExtensionFilter("Arquivo SQL", "sql"));
       jc.setAcceptAllFileFilterUsed(false);
       jc.showOpenDialog(jc);
@@ -374,6 +398,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
       System.out.println("Restaurar de: " + file.getAbsolutePath());  
     
       objBackup.RestauraBackup(file.getAbsolutePath());
+      
+      try {
+                    objpriPrincipal.CarregaTabela(tblLista, objConfigBusca);
+                } catch (SQLException ex1) {
+                    Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+      
     }
     
     /**

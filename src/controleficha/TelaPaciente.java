@@ -2,6 +2,7 @@
 package controleficha;
 
 import com.toedter.calendar.JDateChooser;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -379,7 +380,11 @@ public class TelaPaciente extends javax.swing.JDialog {
 
                         carregaObjeto();
                         objPaciente.atualizar(objPaciente.getId());
-                        objPrincipal.CarregaTabela(tblLista,objConfigBusca);
+                            try {
+                                objPrincipal.CarregaTabela(tblLista,objConfigBusca);
+                            } catch (SQLException ex) {
+                                Logger.getLogger(TelaPaciente.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                         this.dispose();
 
                     }else if(resultado == 1){
@@ -394,7 +399,13 @@ public class TelaPaciente extends javax.swing.JDialog {
 
                         carregaObjeto();
                         objPaciente.salvar();
-                        objPrincipal.CarregaTabela(tblLista,objConfigBusca);
+                        
+                            try {
+                                objPrincipal.CarregaTabela(tblLista,objConfigBusca);
+                            } catch (SQLException ex) {
+                                Logger.getLogger(TelaPaciente.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            
                         this.dispose();
 
                     }else if(resultado == 1){
@@ -418,7 +429,13 @@ public class TelaPaciente extends javax.swing.JDialog {
             if(resposta == 0){
 
                 objPaciente.excluir(objPaciente.getId());
-                objPrincipal.CarregaTabela(tblLista, objConfigBusca);
+                
+                    try {
+                        objPrincipal.CarregaTabela(tblLista, objConfigBusca);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(TelaPaciente.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
                 JOptionPane.showMessageDialog(this, "Cadastro excluído com sucesso.");
                 this.dispose();
 

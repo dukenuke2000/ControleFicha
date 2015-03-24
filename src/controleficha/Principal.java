@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class Principal extends Conexao {
     
-    public void CarregaTabela(JTable tblLista, configBusca objConfigBusca){
+    public void CarregaTabela(JTable tblLista, configBusca objConfigBusca) throws SQLException{
 
         String auxSqlData = "";
         ConectaBase(true);
@@ -32,7 +32,7 @@ public class Principal extends Conexao {
         
         System.out.println(sql);
         
-        try {
+
             
             tblModelo = (DefaultTableModel) tblLista.getModel();
             tblModelo.setNumRows(0);
@@ -50,9 +50,6 @@ public class Principal extends Conexao {
                 
             }
             
-        } catch (SQLException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
     }
     

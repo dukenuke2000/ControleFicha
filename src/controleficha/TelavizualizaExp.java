@@ -1,8 +1,11 @@
 
 package controleficha;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -327,7 +330,13 @@ public class TelavizualizaExp extends javax.swing.JFrame {
            
             csvArq.InsereDadosImportados(tblVizualiza,listaLocalOk, listaImportadalOk, listaIndice);
             JOptionPane.showMessageDialog(null, "Dados importados com sucesso.");
-            objPrincipal.CarregaTabela(tblPrincipal, new configBusca());
+           
+                try {
+                    objPrincipal.CarregaTabela(tblPrincipal, new configBusca());
+                } catch (SQLException ex) {
+                    Logger.getLogger(TelavizualizaExp.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
             this.dispose();
             
        }
