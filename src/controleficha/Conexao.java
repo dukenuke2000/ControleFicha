@@ -11,8 +11,6 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import org.h2.tools.Server;
 
@@ -34,7 +32,14 @@ public class Conexao extends TInputOutput {
     //ConectaBase(true);
 
     public Conexao(){
-            
+        
+        String DiretorioLocal = System.getProperty("user.dir") + "\\Backup";
+        
+        File fileDir = new File(DiretorioLocal);
+        
+        if(!fileDir.exists()){
+            fileDir.mkdir();
+        }
         
         File file = new File(getLocalarquivo());
         
@@ -47,15 +52,25 @@ public class Conexao extends TInputOutput {
             pathDb = PegaValor("database");
             servidor = PegaValor("servidor");
             
+            System.out.println("dir da aplicacao: " + System.getProperty("user.dir"));
+            
         }else{
             
             System.out.println("Arquivo Config.ini não existe !!!");
             
-            
             try{
                 
-                String[] linhaConfig = {"database=~/NetBeansProjects/prefeitura/saude",
-                                        "servidor=localhost"
+                String LocalAplicacao = System.getProperty("user.dir");
+                
+               //Linux
+//                String[] linhaConfig = {"database=~/NetBeansProjects/prefeitura/saude",
+//                                        "servidor=localhost"
+//                                        };
+                
+                //windows
+                String[] linhaConfig = {"database=" + LocalAplicacao + "\\saude",
+                                        "servidor=localhost",
+                                        "Backup_dir=Backup"
                                         };
 
                 gravaTexto(linhaConfig);
