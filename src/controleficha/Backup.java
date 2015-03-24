@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 public class Backup extends Conexao {
@@ -18,14 +19,21 @@ public class Backup extends Conexao {
         String dataAtual = sdf.format(data);
         
         
-        
-        String sql = "SCRIPT TO '" + Caminho + "_" +dataAtual + ".sql'";
+        String auxCaminho = Caminho + "_" +dataAtual + ".sql'";
+        String sql = "SCRIPT TO '" + auxCaminho;
         
         System.out.println("Sql : " + sql);
         
         try {
+            
             getStm().execute(sql);
+            
+            JOptionPane.showMessageDialog(null, "Backup realizado com sucesso.\n" + auxCaminho);
+            
         } catch (SQLException ex) {
+            
+            JOptionPane.showMessageDialog(null, "Falha ao tentar realizar o backup");
+            
             Logger.getLogger(Backup.class.getName()).log(Level.SEVERE, null, ex);
         }
     
@@ -38,8 +46,14 @@ public class Backup extends Conexao {
         String sql = "RUNSCRIPT FROM '" + Caminho + "'"; 
        
         try {
+            
             getStm().execute(sql);
+            
+            JOptionPane.showMessageDialog(null, "Backup restaurado com sucesso.");
+            
          } catch (SQLException ex) {
+            
+            JOptionPane.showMessageDialog(null, "Falha ao tentar restaurar o Backup");
             Logger.getLogger(Backup.class.getName()).log(Level.SEVERE, null, ex);
          }
     
