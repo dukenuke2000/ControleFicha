@@ -1,7 +1,5 @@
 package controleficha;
 
-
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,10 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
+//import sun.misc.BASE64Decoder;
+//import sun.misc.BASE64Encoder;
 
 
 
@@ -156,32 +152,32 @@ public class TInputOutput {
         return resultado;
     }
     
-    public String Codifica(String Senha){
-        String Codigo = null;
-
-        BASE64Encoder encoder = new BASE64Encoder();
-        String encodedBytes = encoder.encodeBuffer(Senha.getBytes());
-     // System.out.println("encodedBytes " + encodedBytes);
-      Codigo = encodedBytes;
-         
-        return Codigo;
+//    public String Codifica(String Senha){
+//        String Codigo = null;
+//
+//        BASE64Encoder encoder = new BASE64Encoder();
+//        String encodedBytes = encoder.encodeBuffer(Senha.getBytes());
+//     // System.out.println("encodedBytes " + encodedBytes);
+//      Codigo = encodedBytes;
+//         
+//        return Codigo;
+//    
+//    }
     
-    }
-    
-    public String Decodifica(String Senha){
-    String codigo = null;
-    
-    BASE64Decoder decoder = new BASE64Decoder();
-        try {
-            byte[] decodedBytes = decoder.decodeBuffer(Senha);
-            codigo = new String(decodedBytes);
-            
-            } catch (IOException ex) {
-                    Logger.getLogger(TInputOutput.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-    
-    return codigo;
-    }
+//    public String Decodifica(String Senha){
+//    String codigo = null;
+//    
+//    BASE64Decoder decoder = new BASE64Decoder();
+//        try {
+//            byte[] decodedBytes = decoder.decodeBuffer(Senha);
+//            codigo = new String(decodedBytes);
+//            
+//            } catch (IOException ex) {
+//                    Logger.getLogger(TInputOutput.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//    
+//    return codigo;
+//    }
     
     public String CaminhoExe(){
     

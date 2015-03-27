@@ -41,7 +41,7 @@ public class paciente extends Conexao {
     }
 
     public String getNome() {
-        return nome;
+        return nome.toUpperCase();
     }
 
     public String getObs() {
@@ -81,7 +81,7 @@ public class paciente extends Conexao {
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.nome = nome.toUpperCase();
     }
 
     public void setObs(String obs) {

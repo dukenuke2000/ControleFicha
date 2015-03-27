@@ -11,7 +11,7 @@ public class configBusca extends Conexao {
     private String dtNascimento = "";
 
     public String getNome() {
-        return nome;
+        return nome.toUpperCase();
     }
 
     public String getCpf() {

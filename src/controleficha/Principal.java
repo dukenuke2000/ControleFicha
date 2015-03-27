@@ -3,8 +3,6 @@ package controleficha;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,11 +22,20 @@ public class Principal extends Conexao {
             auxSqlData = "and DTNASCIMENTO like '" + objConfigBusca.getDtNascimento() + "' ";
         }
         
-        String sql = "SELECT * FROM pacientes WHERE CPF like '" + objConfigBusca.getCpf() + "%' and "
-                                                + " CNS like '" + objConfigBusca.getCns() + "%' and "
-                                                + " NOME like '" + objConfigBusca.getNome() + "%' "
-                                                +  auxSqlData 
-                   + "ORDER BY id DESC LIMIT 15";
+        String sql = "SELECT ID,"
+                          + "FICHA,"
+                          + "CPF,"
+                          + "CNS,"
+                          + "upper(NOME) as NOME,"
+                          + "OBS,"
+                          + "TELEFONE1,"
+                          + "TELEFONE2,"
+                          + "CELULAR,"
+                          + "DTNASCIMENTO FROM pacientes WHERE CPF like '" + objConfigBusca.getCpf() + "%' and "
+                                                                           + " CNS like '" + objConfigBusca.getCns() + "%' and "
+                                                                           + " upper(NOME) like '" + objConfigBusca.getNome().toUpperCase() + "%' "
+                                                                           +  auxSqlData 
+                          + "ORDER BY id DESC LIMIT 15";
         
         System.out.println(sql);
         

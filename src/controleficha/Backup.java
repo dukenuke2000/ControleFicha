@@ -2,7 +2,6 @@ package controleficha;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +18,7 @@ public class Backup extends Conexao {
         String dataAtual = sdf.format(data);
         
         
-        String auxCaminho = Caminho + "_" +dataAtual + ".sql'";
+        String auxCaminho = Caminho + "_" + dataAtual + ".sql'";
         String sql = "SCRIPT TO '" + auxCaminho;
         
         System.out.println("Sql : " + sql);
@@ -35,6 +34,7 @@ public class Backup extends Conexao {
             JOptionPane.showMessageDialog(null, "Falha ao tentar realizar o backup");
             
             Logger.getLogger(Backup.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
     
     }

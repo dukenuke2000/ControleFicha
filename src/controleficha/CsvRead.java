@@ -34,7 +34,7 @@ public class CsvRead extends Conexao {
 //        jc.showOpenDialog(jc);
 //        File file = jc.getSelectedFile();
         
-     //   String arquivo = file.getPath();
+//        String arquivo = file.getPath();
         
         DefaultTableModel tblModelo = (DefaultTableModel) tblVizualiza.getModel();
         

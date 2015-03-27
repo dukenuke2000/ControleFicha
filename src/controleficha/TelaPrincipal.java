@@ -8,8 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
-import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.MaskFormatter;
 
@@ -78,6 +76,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
             jLabel3.setText("CNS:");
 
+            edtCns.addKeyListener(new java.awt.event.KeyAdapter() {
+                public void keyPressed(java.awt.event.KeyEvent evt) {
+                    edtCnsKeyPressed(evt);
+                }
+            });
+
+            edtNome.addKeyListener(new java.awt.event.KeyAdapter() {
+                public void keyPressed(java.awt.event.KeyEvent evt) {
+                    edtNomeKeyPressed(evt);
+                }
+            });
+
             jLabel1.setText("Nome:");
 
             btnBuscar.setText("Buscar");
@@ -88,8 +98,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
             });
 
         }catch(Exception e){}
+        edtCpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                edtCpfKeyPressed(evt);
+            }
+        });
 
         jLabel4.setText("Data de Nascimento:");
+
+        edtNascimento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                edtNascimentoKeyPressed(evt);
+            }
+        });
 
         btnLimpar.setText("Limpar");
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -288,35 +309,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
     
-        String auxData = null;
-        
-        if(edtNascimento.getDate() != null){
-            
-            SimpleDateFormat df = new SimpleDateFormat("dd/MM/YYYY");
-            auxData = df.format(edtNascimento.getDate());
-            
-        }
-        
-      //  System.out.println(auxData);
-        
-        objConfigBusca.setCns(edtCns.getText());
-        objConfigBusca.setCpf(edtCpf.getText());
-        objConfigBusca.setDtNascimento(auxData);
-        objConfigBusca.setNome(edtNome.getText());
-        
-        try {
-            objpriPrincipal.CarregaTabela(tblLista, objConfigBusca);
-        } catch (SQLException ex) {
-            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            
-            RestauraBackup();
-            
-                try {
-                    objpriPrincipal.CarregaTabela(tblLista, objConfigBusca);
-                } catch (SQLException ex1) {
-                    Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex1);
-                }
-        }
+      pesquisa();
         
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -365,6 +358,80 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_mnuSairActionPerformed
 
+    private void edtCpfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edtCpfKeyPressed
+
+        if(evt.getKeyCode() == 10){
+            
+            pesquisa();
+            
+        }
+        
+    }//GEN-LAST:event_edtCpfKeyPressed
+
+    private void edtCnsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edtCnsKeyPressed
+       
+        if(evt.getKeyCode() == 10){
+            
+            pesquisa();
+            
+        }
+        
+    }//GEN-LAST:event_edtCnsKeyPressed
+
+    private void edtNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edtNomeKeyPressed
+       
+        if(evt.getKeyCode() == 10){
+            
+            pesquisa();
+            
+        }
+        
+    }//GEN-LAST:event_edtNomeKeyPressed
+
+    private void edtNascimentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edtNascimentoKeyPressed
+        
+        if(evt.getKeyCode() == 10){
+            
+            pesquisa();
+            
+        }
+        
+    }//GEN-LAST:event_edtNascimentoKeyPressed
+
+    public void pesquisa(){
+    
+         String auxData = null;
+        
+        if(edtNascimento.getDate() != null){
+            
+            SimpleDateFormat df = new SimpleDateFormat("dd/MM/YYYY");
+            auxData = df.format(edtNascimento.getDate());
+            
+        }
+        
+      //  System.out.println(auxData);
+        
+        objConfigBusca.setCns(edtCns.getText());
+        objConfigBusca.setCpf(edtCpf.getText());
+        objConfigBusca.setDtNascimento(auxData);
+        objConfigBusca.setNome(edtNome.getText());
+        
+        try {
+            objpriPrincipal.CarregaTabela(tblLista, objConfigBusca);
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            
+            RestauraBackup();
+            
+                try {
+                    objpriPrincipal.CarregaTabela(tblLista, objConfigBusca);
+                } catch (SQLException ex1) {
+                    Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+        } 
+    
+    }
+    
     public void LimpaPesquisa(){
     
         edtCns.setText(null);

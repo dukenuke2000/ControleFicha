@@ -86,8 +86,6 @@ public class Conexao extends TInputOutput {
                 
             }
             
-            
-            
         }
         
             
@@ -109,6 +107,7 @@ public class Conexao extends TInputOutput {
                     }else{
                         ConfigCon = "jdbc:h2:tcp://" + servidor + "/" + pathDb;
                     }
+                    
                 System.out.println("Base de dados: " + ConfigCon);
                 
               //  Class.forName("org.h2.Driver");
