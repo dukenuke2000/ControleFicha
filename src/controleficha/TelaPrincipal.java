@@ -1,6 +1,7 @@
 
 package controleficha;
 
+import agenda.telaMedicos;
 import java.io.File;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -61,7 +62,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
             tblLista = new javax.swing.JTable();
             jMenuBar1 = new javax.swing.JMenuBar();
             jMenu1 = new javax.swing.JMenu();
+            jMenu3 = new javax.swing.JMenu();
             mnuNovo = new javax.swing.JMenuItem();
+            jMenuItem1 = new javax.swing.JMenuItem();
+            jMenuItem2 = new javax.swing.JMenuItem();
             mnuImportar = new javax.swing.JMenuItem();
             mnuSair = new javax.swing.JMenuItem();
             jMenu2 = new javax.swing.JMenu();
@@ -212,13 +216,28 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Arquivo");
 
-        mnuNovo.setText("Novo...");
+        jMenu3.setText("Novo...");
+
+        mnuNovo.setText("Paciente");
         mnuNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuNovoActionPerformed(evt);
             }
         });
-        jMenu1.add(mnuNovo);
+        jMenu3.add(mnuNovo);
+
+        jMenuItem1.setText("Médico");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem1);
+
+        jMenuItem2.setText("Especialidade");
+        jMenu3.add(jMenuItem2);
+
+        jMenu1.add(jMenu3);
 
         mnuImportar.setText("Importar CSV...");
         mnuImportar.addActionListener(new java.awt.event.ActionListener() {
@@ -398,6 +417,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_edtNascimentoKeyPressed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        
+        telaMedicos Tmed = new telaMedicos(false);
+        Tmed.setLocationRelativeTo(null);
+        Tmed.setModal(true);
+        Tmed.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     public void pesquisa(){
     
          String auxData = null;
@@ -537,7 +565,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

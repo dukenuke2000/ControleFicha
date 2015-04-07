@@ -63,17 +63,18 @@ public class Conexao extends TInputOutput {
                 String LocalAplicacao = System.getProperty("user.dir");
                 
                //Linux
-//                String[] linhaConfig = {"database=~/NetBeansProjects/prefeitura/saude",
-//                                        "servidor=localhost"
-//                                        };
-                
-                //windows
-                String[] linhaConfig = {"database=" + LocalAplicacao + "\\saude",
+                String[] linhaConfig = {"database=~/NetBeansProjects/prefeitura/saude",
                                         "servidor=localhost",
                                         "Backup_dir=Backup"
                                         };
-
-                gravaTexto(linhaConfig);
+                
+//                //windows
+//                String[] linhaConfig = {"database=" + LocalAplicacao + "\\saude",
+//                                        "servidor=localhost",
+//                                        "Backup_dir=Backup"
+//                                        };
+                
+               gravaTexto(linhaConfig);
             
                 System.out.println("Arquivo Config.ini criado com sucesso...");
                 
