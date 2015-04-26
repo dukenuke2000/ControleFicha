@@ -113,7 +113,7 @@ public class Conexao extends TInputOutput {
                 
               //  Class.forName("org.h2.Driver");
                 connection = DriverManager.getConnection(ConfigCon, usuario , senha);
-                stm = connection.createStatement();
+                stm = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
             }else{
 

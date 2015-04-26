@@ -1,6 +1,7 @@
 
 package controleficha;
 
+import agenda.TelaAgendaConsulta;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -110,6 +111,7 @@ public class TelaPaciente extends javax.swing.JDialog {
             jPanel5 = new javax.swing.JPanel();
             jLabel7 = new javax.swing.JLabel();
             edtFicha = new javax.swing.JTextField();
+            btnAgendaConsulta = new javax.swing.JButton();
             jPanel2 = new javax.swing.JPanel();
             jLabel4 = new javax.swing.JLabel();
             jLabel5 = new javax.swing.JLabel();
@@ -158,11 +160,21 @@ public class TelaPaciente extends javax.swing.JDialog {
 
                     edtFicha.setFont(new java.awt.Font("Ubuntu Mono", 1, 19)); // NOI18N
 
+                    btnAgendaConsulta.setText("Agendar Consulta");
+                    btnAgendaConsulta.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                            btnAgendaConsultaActionPerformed(evt);
+                        }
+                    });
+
                     javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
                     jPanel5.setLayout(jPanel5Layout);
                     jPanel5Layout.setHorizontalGroup(
                         jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAgendaConsulta)
+                            .addContainerGap())
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addContainerGap()
@@ -173,7 +185,10 @@ public class TelaPaciente extends javax.swing.JDialog {
                     );
                     jPanel5Layout.setVerticalGroup(
                         jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 100, Short.MAX_VALUE)
+                        .addGroup(jPanel5Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(btnAgendaConsulta)
+                            .addContainerGap(59, Short.MAX_VALUE))
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGap(16, 16, 16)
@@ -384,51 +399,51 @@ public class TelaPaciente extends javax.swing.JDialog {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         
-        if(ValidaCampos()){
-        
+        if (ValidaCampos()) {
+
             int resultado = JOptionPane.showConfirmDialog(this, "Confirma a gravação dos dados ?");
 
-                if(FlagEdit){
+            if (FlagEdit) {
 
-                    if(resultado == 0){
+                if (resultado == 0) {
 
-                        carregaObjeto();
-                        objPaciente.atualizar(objPaciente.getId());
-                            try {
-                                objPrincipal.CarregaTabela(tblLista,objConfigBusca);
-                            } catch (SQLException ex) {
-                                Logger.getLogger(TelaPaciente.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        this.dispose();
-
-                    }else if(resultado == 1){
-
-                        dispose();
-
+                    carregaObjeto();
+                    objPaciente.atualizar(objPaciente.getId());
+                    try {
+                        objPrincipal.CarregaTabela(tblLista, objConfigBusca);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(TelaPaciente.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    this.dispose();
 
-                }else{
+                } else if (resultado == 1) {
 
-                    if(resultado == 0){
-
-                        carregaObjeto();
-                        objPaciente.salvar();
-                        
-                            try {
-                                objPrincipal.CarregaTabela(tblLista,objConfigBusca);
-                            } catch (SQLException ex) {
-                                Logger.getLogger(TelaPaciente.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                            
-                        this.dispose();
-
-                    }else if(resultado == 1){
-
-                        dispose();
-
-                    }
+                    dispose();
 
                 }
+
+            } else {
+
+                if (resultado == 0) {
+
+                    carregaObjeto();
+                    objPaciente.salvar();
+
+                    try {
+                        objPrincipal.CarregaTabela(tblLista, objConfigBusca);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(TelaPaciente.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    this.dispose();
+
+                } else if (resultado == 1) {
+
+                    dispose();
+
+                }
+
+            }
 
         }
         
@@ -436,59 +451,68 @@ public class TelaPaciente extends javax.swing.JDialog {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
       
-        if(objPaciente.getId() != 0){
-        
-            int resposta = JOptionPane.showConfirmDialog(this,"Tem certeza que deseja EXCLUÍR este cadastro ?");
+        if (objPaciente.getId() != 0) {
 
-            if(resposta == 0){
+            int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja EXCLUÍR este cadastro ?");
+
+            if (resposta == 0) {
 
                 objPaciente.excluir(objPaciente.getId());
-                
-                    try {
-                        objPrincipal.CarregaTabela(tblLista, objConfigBusca);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(TelaPaciente.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    
+
+                try {
+                    objPrincipal.CarregaTabela(tblLista, objConfigBusca);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TelaPaciente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
                 JOptionPane.showMessageDialog(this, "Cadastro excluído com sucesso.");
                 this.dispose();
 
-            }else if(resposta == 1){
+            } else if (resposta == 1) {
 
                 this.dispose();
 
             }
-        
+
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
-    public boolean ValidaCampos(){
-    
-        boolean flag = true;
-        
-        if(edtNome.getText().toString().trim().length() == 0){
-        
-            flag  = false;
-            JOptionPane.showMessageDialog(null, "Infome o nome do Paciente.");
-            
-        }else if(edtFicha.getText().trim().length() == 0){
-        
-            flag  = false;
-            JOptionPane.showMessageDialog(null, "Infome o número da ficha.");
-            
-        }else if(edtNascimento.getDate() == null){
+    private void btnAgendaConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendaConsultaActionPerformed
 
-                flag  = false;
-                JOptionPane.showMessageDialog(null, "Data de nascimento incorreta.");
-         
-        }else if(!CpfCnpj.isValidCPF(edtCpf.getText())){
+        TelaAgendaConsulta tac = new TelaAgendaConsulta(objPaciente);
+        tac.setModal(true);
+        tac.setLocationRelativeTo(null);
+        tac.setVisible(true);
         
+    }//GEN-LAST:event_btnAgendaConsultaActionPerformed
+
+    public boolean ValidaCampos() {
+
+        boolean flag = true;
+
+        if (edtNome.getText().toString().trim().length() == 0) {
+
+            flag = false;
+            JOptionPane.showMessageDialog(null, "Infome o nome do Paciente.");
+
+        } else if (edtFicha.getText().trim().length() == 0) {
+
+            flag = false;
+            JOptionPane.showMessageDialog(null, "Infome o número da ficha.");
+
+        } else if (edtNascimento.getDate() == null) {
+
+            flag = false;
+            JOptionPane.showMessageDialog(null, "Data de nascimento incorreta.");
+
+        } else if (!CpfCnpj.isValidCPF(edtCpf.getText())) {
+
             flag = false;
             JOptionPane.showMessageDialog(null, "CPF inválido.");
-            
+
         }
-        
-    return flag;
+
+        return flag;
     }
     
     /**
@@ -527,6 +551,7 @@ public class TelaPaciente extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgendaConsulta;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnSalvar;
